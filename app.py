@@ -10,45 +10,10 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 
-# transformations = [
-#     {
-#         title: "Negativo",
-#         route: "/negativo",
-#     },
-#     {
-#         title: "Logaritmica",
-#     },
-#     {
-#         title: "Potência"
-#     },
-#     {
-#         title: "Fatiamento por plano de bits"
-#     },
-#     {
-#         title: "Equalização de histograma (local)"
-#     },
-#     {
-#         title: "Equalização de histograma (global)"
-#     },
-#     {
-#         title: "Filtro de média"
-#     },
-#     {
-#         title: "Filtro de mediana"
-#     },
-#     {
-#         title: "Filtro de Sobel"
-#     },
-#     {
-#         title: "Filtro de Laplace"
-#     },
-#     {
-#         title: "Filtro High Boost"
-#     },
-#     {
-#         title: "Filtro Roberts"
-#     },
-# ]
+@app.route("/")
+def hello_world():
+    return "<p>Hello, World!</p>"
+
 @app.route("/negativo", methods=['POST'])
 def imageNegativeTransformation():
     file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
