@@ -34,14 +34,23 @@ class ImageTransformation:
         
         cv2.imwrite('./assets/cat-edited.png', power_image)
     
-    def piecewiseLinearTransformation(self, r1, s1, r2, s2):
-        # Apply piecewise linear transformation method
-        c = 255 / (r2 - r1)
-        piece_image = c * (self._image - r1) + s1
+    # def piecewiseLinearTransformation(self, r1, s1, r2, s2):
+    #     # Apply piecewise linear transformation method
+    #     c = 255 / (r2 - r1)
+    #     piece_image = c * (self._image - r1) + s1
         
-        piece_image = np.array(piece_image, dtype = np.uint8)
+    #     piece_image = np.array(piece_image, dtype = np.uint8)
         
-        cv2.imwrite('./assets/cat-edited.png', piece_image)
+    #     cv2.imwrite('./assets/cat-edited.png', piece_image)
+
+    def bitPlaneSlicing(self, bit):
+        # Apply bit plane slicing method
+        bit_image = self._image.copy()
+        bit_image = bit_image >> bit
+        bit_image = bit_image & 1
+        bit_image = bit_image * 255
+        
+        cv2.imwrite('./assets/cat-edited.png', bit_image)
     
     def imageNegativeTransformation(self):
         # Apply image negative transformation method

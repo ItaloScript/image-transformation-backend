@@ -46,12 +46,20 @@ def imagePowerLawTransformation():
 #     x.XXXXXXXXXXXXXXXXXXXXXXXXXXXXX(0.5)
 #     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
-@app.route("/piecewise", methods=['POST'])
-def pieceWiseTransformation():
+# @app.route("/piecewise", methods=['POST'])
+# def pieceWiseTransformation():
+#     file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+#     file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+#     x = ImageTransformation(file)
+#     x.piecewiseLinearTransformation(50, 100, 150, 200)
+#     return send_file('./assets/cat-edited.png', mimetype='image/png')
+
+@app.route("/bit-plane", methods=['POST'])
+def bitPlaneSlicing():
     file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
     file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     x = ImageTransformation(file)
-    x.piecewiseLinearTransformation(50, 100, 150, 200)
+    x.bitPlaneSlicing(1)
     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
 @app.route("/histograma-local", methods=['POST'])
