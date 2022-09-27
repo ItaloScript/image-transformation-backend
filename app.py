@@ -59,7 +59,7 @@ def bitPlaneSlicing():
     file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
     file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     x = ImageTransformation(file)
-    x.bitPlaneSlicing(8)
+    x.bitPlaneSlicing(1)
     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
 @app.route("/histograma-local", methods=['POST'])
