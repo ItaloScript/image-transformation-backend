@@ -47,7 +47,7 @@ class ImageTransformation:
         # Apply bit plane slicing method
         bit_image = self._image.copy()
         bit_image = bit_image >> bit
-        bit_image = bit_image & 1
+        # bit_image = bit_image & 1
         bit_image = bit_image * 255
         
         cv2.imwrite('./assets/cat-edited.png', bit_image)
