@@ -46,9 +46,11 @@ class ImageTransformation:
     def bitPlaneSlicing(self, bit):
         # Apply bit plane slicing method
         bit_image = self._image.copy()
+        bit_image = cv2.cvtColor(bit_image, cv2.COLOR_BGR2GRAY)
         bit_image = bit_image >> bit
         bit_image = bit_image & 1
         bit_image = bit_image * 255
+        #transform in gray
         
         cv2.imwrite('./assets/cat-edited.png', bit_image)
     
