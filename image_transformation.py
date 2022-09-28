@@ -77,14 +77,14 @@ class ImageTransformation:
     
     def espacialMedianFilter(self, size):
         # Apply spacial median filter method
-        image = cv2.cvtColor(self._image, cv2.COLOR_BGR2HSV)
+        image = cv2.cvtColor(self._image, cv2.COLOR_BGR2GRAY)
         median_image = cv2.medianBlur(image, size)
         
         cv2.imwrite('./assets/cat-edited.png', median_image)
     
     def espacialMeanFilter(self, size):
         # Apply spacial mean filter method
-        image = cv2.cvtColor(self._image, cv2.COLOR_BGR2HSV)
+        image = cv2.cvtColor(self._image, cv2.COLOR_BGR2GRAY)
         mean_image = cv2.blur(image, (size, size))
         
         cv2.imwrite('./assets/cat-edited.png', mean_image)
