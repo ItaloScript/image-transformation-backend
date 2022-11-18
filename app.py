@@ -166,8 +166,42 @@ def hitOrMiss():
     x.hitOrMiss()
     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
-    
+@app.route("/boundaryExtraction", methods=['POST'])
+def boundaryExtraction():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.boundaryExtraction()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
 
+@app.route("/holeFilling", methods=['POST'])
+def holeFilling():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.holeFilling()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
 
+@app.route("/connectedComponents", methods=['POST'])
+def connectedComponents():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.connectedComponents()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
 
+@app.route("/watershed", methods=['POST'])
+def watershed():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.watershed()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
 
+@app.route("/regionGrowing", methods=['POST'])
+def regionGrowing():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.regionGrowing()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
