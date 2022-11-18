@@ -131,7 +131,7 @@ def erosion():
     file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
     file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     x = ImageTransformation(file)
-    x.erosion()
+    x.erosion(1)
     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
 @app.route("/dilation", methods=['POST'])
@@ -139,7 +139,7 @@ def dilation():
     file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
     file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     x = ImageTransformation(file)
-    x.dilation()
+    x.dilation(1)
     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
 @app.route("/opening", methods=['POST'])
@@ -147,7 +147,7 @@ def opening():
     file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
     file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     x = ImageTransformation(file)
-    x.opening()
+    x.opening(1)
     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
 @app.route("/closing", methods=['POST'])
@@ -155,7 +155,7 @@ def closing():
     file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
     file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     x = ImageTransformation(file)
-    x.closing()
+    x.closing(1)
     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
 @app.route("/hitormiss", methods=['POST'])
@@ -163,7 +163,7 @@ def hitOrMiss():
     file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
     file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     x = ImageTransformation(file)
-    x.hitOrMiss()
+    x.hitOrMiss(1)
     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
 @app.route("/boundaryExtraction", methods=['POST'])
