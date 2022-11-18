@@ -126,6 +126,46 @@ def sobel():
     x.sobelFilter()
     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
+@app.route("/erosion", methods=['POST'])
+def erosion():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.erosion()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
+
+@app.route("/dilation", methods=['POST'])
+def dilation():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.dilation()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
+
+@app.route("/opening", methods=['POST'])
+def opening():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.opening()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
+
+@app.route("/closing", methods=['POST'])
+def closing():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.closing()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
+
+@app.route("/hitormiss", methods=['POST'])
+def hitOrMiss():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.hitOrMiss()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
+
     
 
 

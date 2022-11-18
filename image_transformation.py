@@ -118,6 +118,35 @@ class ImageTransformation:
         roberts_image = cv2.filter2D(self._image, -1, np.array([[0, 1], [-1, 0]]))
         
         cv2.imwrite('./assets/cat-edited.png', roberts_image)
+
+    def erosion(self, kernel):
+        # Apply erosion method
+        erosion_image = cv2.erode(self._image, kernel, iterations=1)
         
+        cv2.imwrite('./assets/cat-edited.png', erosion_image)
     
+    def dilation(self, kernel):
+        # Apply dilation method
+        dilation_image = cv2.dilate(self._image, kernel, iterations=1)
+        
+        cv2.imwrite('./assets/cat-edited.png', dilation_image)
+    
+    def opening(self, kernel):
+        # Apply opening method
+        opening_image = cv2.morphologyEx(self._image, cv2.MORPH_OPEN, kernel)
+        
+        cv2.imwrite('./assets/cat-edited.png', opening_image)
+        
+    def closing(self, kernel):
+        # Apply closing method
+        closing_image = cv2.morphologyEx(self._image, cv2.MORPH_CLOSE, kernel)
+        
+        cv2.imwrite('./assets/cat-edited.png', closing_image)
+    
+    def hitOrMiss(self, kernel):
+        # Apply hit or miss method
+        hit_image = cv2.morphologyEx(self._image, cv2.MORPH_HITMISS, kernel)
+        
+        cv2.imwrite('./assets/cat-edited.png', hit_image)
+
     
