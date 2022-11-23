@@ -8,6 +8,7 @@ import cv2
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+kernel = numpy.ones((5,5),numpy.uint8)
 
 
 @app.route("/")
@@ -131,7 +132,7 @@ def erosion():
     file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
     file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     x = ImageTransformation(file)
-    x.erosion(1)
+    x.erosion(kernel)
     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
 @app.route("/dilation", methods=['POST'])
@@ -139,7 +140,7 @@ def dilation():
     file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
     file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     x = ImageTransformation(file)
-    x.dilation(1)
+    x.dilation(kernel)
     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
 @app.route("/opening", methods=['POST'])
@@ -147,7 +148,7 @@ def opening():
     file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
     file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     x = ImageTransformation(file)
-    x.opening(1)
+    x.opening(kernel)
     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
 @app.route("/closing", methods=['POST'])
@@ -155,15 +156,15 @@ def closing():
     file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
     file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     x = ImageTransformation(file)
-    x.closing(1)
+    x.closing(kernel)
     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
-@app.route("/hitormiss", methods=['POST'])
+@app.route("/hitOrMiss", methods=['POST'])
 def hitOrMiss():
     file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
     file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     x = ImageTransformation(file)
-    x.hitOrMiss(1)
+    x.hitOrMiss(kernel)
     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
 @app.route("/boundaryExtraction", methods=['POST'])
@@ -188,6 +189,62 @@ def connectedComponents():
     file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     x = ImageTransformation(file)
     x.connectedComponents()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
+
+@app.route("/prewitt", methods=['POST'])
+def prewitt():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.prewittFilter()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
+
+@app.route("/gradientThresholding", methods=['POST'])
+def gradientThreshholding():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.gradientThreshholding()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
+
+@app.route("/marrHildrethFilter", methods=['POST'])
+def marrHildrethFilter():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.marrHildrethFilter()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
+
+@app.route("/cannyFilter", methods=['POST'])
+def cannyFilter():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.cannyFilter()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
+
+@app.route("/houghTransform", methods=['POST'])
+def houghTransform():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.houghTransform()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
+
+@app.route("/otsuThresholding", methods=['POST'])
+def otsuThresholding():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.otsuThresholding()
+    return send_file('./assets/cat-edited.png', mimetype='image/png')
+
+@app.route("/movingAverageFilter", methods=['POST'])
+def movingAverageFilter():
+    file_bytes = numpy.fromfile(request.files['image'], numpy.uint8)
+    file = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    x = ImageTransformation(file)
+    x.movingAverageFilter()
     return send_file('./assets/cat-edited.png', mimetype='image/png')
 
 @app.route("/watershed", methods=['POST'])

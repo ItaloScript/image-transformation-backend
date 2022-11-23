@@ -166,6 +166,73 @@ class ImageTransformation:
         
         cv2.imwrite('./assets/cat-edited.png', image)
 
+    def prewittFilter(self):
+        image = cv2.cvtColor(self._image, cv2.COLOR_BGR2GRAY)
+        prewitt_image = image.copy()
+        for i in range(1,image.shape[0]-1):
+            for j in range(1,image.shape[1]-1):
+                gx = image[i-1, j-1] + image[i-1, j] + image[i-1, j+1] - image[i+1, j-1] - image[i+1, j] - image[i+1, j+1]
+                gy = image[i-1, j-1] + image[i, j-1] + image[i+1, j-1] - image[i-1, j+1] - image[i, j+1] - image[i+1, j+1]
+                prewitt_image[i, j] = np.sqrt(gx*gx + gy*gy)
+        
+        cv2.imwrite('./assets/cat-edited.png', prewitt_image)
+
+    def gradientThreshholding(self):
+        image = cv2.cvtColor(self._image, cv2.COLOR_BGR2GRAY)
+        gradient_image = image.copy()
+        for i in range(1,image.shape[0]-1):
+            for j in range(1,image.shape[1]-1):
+                gx = image[i-1, j-1] + image[i-1, j] + image[i-1, j+1] - image[i+1, j-1] - image[i+1, j] - image[i+1, j+1]
+                gy = image[i-1, j-1] + image[i, j-1] + image[i+1, j-1] - image[i-1, j+1] - image[i, j+1] - image[i+1, j+1]
+                gradient_image[i, j] = np.sqrt(gx*gx + gy*gy)
+        
+        ret, thresh = cv2.threshold(gradient_image, 127, 255, 0)
+        cv2.imwrite('./assets/cat-edited.png', thresh)
+
+    def marrHildrethFilter(self):
+        image = cv2.cvtColor(self._image, cv2.COLOR_BGR2GRAY)
+        marr_image = image.copy()
+        for i in range(1,image.shape[0]-1):
+            for j in range(1,image.shape[1]-1):
+                gx = image[i-1, j-1] + image[i-1, j] + image[i-1, j+1] - image[i+1, j-1] - image[i+1, j] - image[i+1, j+1]
+                gy = image[i-1, j-1] + image[i, j-1] + image[i+1, j-1] - image[i-1, j+1] - image[i, j+1] - image[i+1, j+1]
+                marr_image[i, j] = np.sqrt(gx*gx + gy*gy)
+        
+        ret, thresh = cv2.threshold(marr_image, 127, 255, 0)
+        cv2.imwrite('./assets/cat-edited.png', thresh)
+
+    def cannyFilter(self):
+        image = cv2.cvtColor(self._image, cv2.COLOR_BGR2GRAY)
+        canny_image = cv2.Canny(image, 100, 200)
+        cv2.imwrite('./assets/cat-edited.png', canny_image)
+
+    def houghTransform(self):
+        image = cv2.cvtColor(self._image, cv2.COLOR_BGR2GRAY)
+        canny_image = cv2.Canny(image, 100, 200)
+        lines = cv2.HoughLines(canny_image, 1, np.pi/180, 100)
+        for line in lines:
+            rho, theta = line[0]
+            a = np.cos(theta)
+            b = np.sin(theta)
+            x0 = a*rho
+            y0 = b*rho
+            x1 = int(x0 + 1000*(-b))
+            y1 = int(y0 + 1000*(a))
+            x2 = int(x0 - 1000*(-b))
+            y2 = int(y0 - 1000*(a))
+            cv2.line(image, (x1, y1), (x2, y2), (0, 0, 255), 2)
+        cv2.imwrite('./assets/cat-edited.png', image)
+
+    def otsuThresholding(self):
+        image = cv2.cvtColor(self._image, cv2.COLOR_BGR2GRAY)
+        ret, thresh = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+        cv2.imwrite('./assets/cat-edited.png', thresh)
+    
+    def movingAverageFilter(self):
+        image = cv2.cvtColor(self._image, cv2.COLOR_BGR2GRAY)
+        blur = cv2.blur(image, (5,5))
+        cv2.imwrite('./assets/cat-edited.png', blur)
+
     def watershed(self):
         image = cv2.cvtColor(self._image, cv2.COLOR_BGR2GRAY)
         ret, thresh = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
